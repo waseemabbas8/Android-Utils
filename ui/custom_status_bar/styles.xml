@@ -1,0 +1,94 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/TextViewFontStyle</item>
+        <item name="buttonStyle">@style/ButtonFontStyle</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@color/colorActivityBackground</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AppTheme.GradientStatusBar" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds"
+              tools:targetApi="lollipop">true</item>
+        <item name="android:statusBarColor"
+              tools:targetApi="lollipop">@android:color/transparent
+        </item>
+
+        <!--Overridden section-->
+        <item name="listPreferredItemHeightSmall">?attr/actionBarSize</item>
+    </style>
+
+    //fonts
+    <style name="TextViewFontStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/open_sans</item>
+    </style>
+    <style name="ButtonFontStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/open_sans</item>
+    </style>
+
+    //views styling
+    <style name="InputDrawable">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="DashboardSectionLabel">
+        <item name="android:layout_marginTop">@dimen/views_standard_margin</item>
+        <item name="android:textSize">@dimen/section_heading_font_size</item>
+        <item name="android:textColor">@color/colorSectionHeading</item>
+    </style>
+    <style name="IconLabel">
+        <item name="android:textSize">@dimen/standard_content_font_size</item>
+        <item name="android:drawablePadding">@dimen/drawable_icon_padding</item>
+        <item name="android:textColor">@color/colorIconLabel</item>
+    </style>
+    <style name="RadioButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_marginTop">@dimen/views_standard_margin</item>
+        <item name="android:background">@drawable/bg_radio_button</item>
+        <item name="android:textColor">@color/radio_button_color</item>
+        <item name="android:buttonTint" tools:targetApi="lollipop">@color/radio_button_color</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/bg_test_buttons</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MarksTextRounded">
+        <item name="android:background">@drawable/bg_count_down</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
