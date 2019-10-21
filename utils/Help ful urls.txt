@@ -1,0 +1,6 @@
+https://www.freecodecamp.org/news/introducing-multiviewadapter-7f77e5758d3f/
+
+https://github.com/CristianMG/KCleanAndroidArquitecture/blob/develop/app/src/main/java/com/cristianmg/sqldelight/domain/ext/GenericBoundaryCallback.kt
+
+//form vlaidation library with data binding 
+https://github.com/Ilhasoft/data-binding-validator
