@@ -129,4 +129,12 @@ class Helpers {
         }
 
     }
+	
+	object FileHelper {
+        fun getTextFromResources(context: Context, resId: Int) = context.resources.openRawResource(resId).use { inputStream ->
+            inputStream.bufferedReader().use {
+                it.readText()
+            }
+        }
+    }
 }
