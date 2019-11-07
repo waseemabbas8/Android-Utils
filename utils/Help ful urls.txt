@@ -4,3 +4,12 @@ https://github.com/CristianMG/KCleanAndroidArquitecture/blob/develop/app/src/mai
 
 //form vlaidation library with data binding 
 https://github.com/Ilhasoft/data-binding-validator
+
+//progressButton
+https://github.com/razir/ProgressButton?source=post_page-----14ed1d50b44----------------------
+
+//image Compression 
+https://github.com/zetbaitsu/Compressor
+
+ViewModel Factory 
+https://github.com/satorufujiwara/kotlin-architecture-components/blob/master/app/src/main/java/jp/satorufujiwara/kotlin/di/ViewModelFactory.kt
