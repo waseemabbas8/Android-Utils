@@ -12,7 +12,7 @@ import androidx.navigation.NavDeepLinkBuilder
 import softsolutions.com.tutors.MainActivity
 import softsolutions.com.tutors.R
 import softsolutions.com.tutors.model.MessageReceiver
-import softsolutions.com.tutors.model.chat.ChatMessage
+import softsolutions.com.tutors.model.chat.NotificationPayload
 
 
 class NotificationHelper(val context: Context) {
@@ -24,7 +24,7 @@ class NotificationHelper(val context: Context) {
         private const val NOTIFICATION_ID = 1
     }
 
-    fun sendLocalNotification(chatMessage: ChatMessage) {
+    fun sendLocalNotification(chatMessage: NotificationPayload) {
         val pendingIntent = buildPendingIntentFromNavigation(chatMessage)
         val notification = buildLetterNotification(chatMessage, pendingIntent!!)
 
@@ -44,11 +44,11 @@ class NotificationHelper(val context: Context) {
     }
 
     private fun buildLetterNotification(
-        chatMessage: ChatMessage,
+        chatMessage: NotificationPayload,
         pendingIntent: PendingIntent
     ): Notification? {
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("New Message")
+            .setContentTitle(chatMessage.senderName)
             .setContentText(chatMessage.message)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setAutoCancel(true)
@@ -58,9 +58,11 @@ class NotificationHelper(val context: Context) {
             .build()
     }
 
-    private fun buildPendingIntentFromNavigation(chatMessage: ChatMessage): PendingIntent? {
+    private fun buildPendingIntentFromNavigation(chatMessage: NotificationPayload): PendingIntent? {
         val bundle = Bundle()
-        val receiver = MessageReceiver(chatMessage.senderId, "Test", "")
+        val receiver = MessageReceiver(
+            chatMessage.senderId, chatMessage.senderName, chatMessage.senderImage, chatMessage.conversationId
+        )
         bundle.putSerializable(EXTRA_MSG_RCV, receiver)
         return NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph)
