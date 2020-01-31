@@ -25,6 +25,13 @@ import ilmkidunya.softsolutions.com.onlinetestsquizzes.R
 class Helpers {
 
     companion object{
+	fun makeProgressButton(view: Button, loadingTextRes: Int){
+            view.showProgress {
+                buttonTextRes = loadingTextRes
+                progressColor = view.currentTextColor
+            }
+        }
+	
         fun showInfoDialog(title: String, msg: String, context: Context){
             AlertDialog.Builder(context)
                 .setTitle(title)
