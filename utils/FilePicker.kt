@@ -1,89 +1,41 @@
-package softsolutions.com.tutors.utils
+package com.softsolutions.ilamkidunya.css.utils
 
-import android.Manifest
-import android.annotation.TargetApi
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
-import android.widget.Toast
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import androidx.fragment.app.Fragment
+import com.jaiselrahman.filepicker.activity.FilePickerActivity
+import com.jaiselrahman.filepicker.config.Configurations
 
-const val REQUEST_FILE = 1806
-class FilePicker(private val context: Context) {
+const val REQUEST_IMAGE = 1893
+const val REQUEST_VIDEO = 1843
+const val REQUEST_FILE = 1863
 
-    fun start() {
-        if (isPermissionNeed()){
-            askStoragePermission(context as Activity)
-        }else{
-            showFileChooser()
-        }
-    }
+class FilePicker(private val fragment: Fragment) {
 
-    private fun askStoragePermission(activity: Activity) {
-        Dexter.withActivity(activity)
-            .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                    showFileChooser()
-                }
+    fun start(requestCode: Int) {
+        var imagesEnabled = false
+        var videosEnabled = false
+        var filesEnabled = false
 
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
-                    token: PermissionToken?
-                ) {
-                    token?.continuePermissionRequest()
-                }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-
-                }
-            })
-            .check()
-
-    }
-
-    private fun isPermissionNeed() =
-        if (Build.VERSION.SDK_INT >= 23) {
-            context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-        }else{
-            false
+        when(requestCode) {
+            REQUEST_IMAGE -> imagesEnabled = true
+            REQUEST_VIDEO -> videosEnabled = true
+            REQUEST_FILE -> filesEnabled = true
         }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private fun showFileChooser() {
+        val intent = Intent(fragment.context, FilePickerActivity::class.java)
+        intent.putExtra(
+            FilePickerActivity.CONFIGS, Configurations.Builder()
+                .setCheckPermission(true)
+                .setShowImages(imagesEnabled)
+                .setShowVideos(videosEnabled)
+                .setSingleChoiceMode(true)
+                .setShowFiles(filesEnabled)
+                .enableImageCapture(imagesEnabled)
+                .setMaxSelection(1)
+                .setSkipZeroSizeFiles(true)
+                .build()
+        )
 
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-
-            addCategory(Intent.CATEGORY_OPENABLE)
-
-            val mimeTypes = arrayOf(
-                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                "application/pdf",
-                "application/x-rar-compressed"
-            )
-
-            type = "*/*"
-
-            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        }
-
-        try {
-            context as Activity
-            context.startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), REQUEST_FILE)
-        } catch (ex: android.content.ActivityNotFoundException) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(
-                context, "Please install a File Manager.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        fragment.startActivityForResult(intent, requestCode)
     }
 }

@@ -143,5 +143,37 @@ class Helpers {
                 it.readText()
             }
         }
+		
+		private fun ContentResolver.getFileName(fileUri: Uri, context: Context): String {
+
+            var name = ""
+            val returnCursor = this.query(fileUri, null, null, null, null)
+            if (returnCursor != null) {
+                val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                returnCursor.moveToFirst()
+                name = returnCursor.getString(nameIndex) ?: getFileName() + "." + getMineType(fileUri, context)
+                returnCursor.close()
+            }
+
+            return name
+        }
+
+        fun createSelectedFileCopy(uri: Uri, context: Context): File? {
+            val parcelFileDescriptor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                context.contentResolver.openFileDescriptor(uri, "r", null)
+            } else {
+                null
+            }
+            parcelFileDescriptor?.let {
+                val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                val file = File(context.cacheDir, context.contentResolver.getFileName(uri, context))
+                val outputStream = FileOutputStream(file)
+                inputStream.copyTo(outputStream)
+                inputStream.close()
+                outputStream.close()
+                return file
+            }
+            return null
+        }
     }
 }
