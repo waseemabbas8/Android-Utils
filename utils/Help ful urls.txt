@@ -11,5 +11,8 @@ https://github.com/razir/ProgressButton?source=post_page-----14ed1d50b44--------
 //image Compression 
 https://github.com/zetbaitsu/Compressor
 
+//Android Apps template 
+https://medium.mybridge.co/38-amazing-android-open-source-apps-java-1a62b7034c40
+
 ViewModel Factory 
 https://github.com/satorufujiwara/kotlin-architecture-components/blob/master/app/src/main/java/jp/satorufujiwara/kotlin/di/ViewModelFactory.kt
